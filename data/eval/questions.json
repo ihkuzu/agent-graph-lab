@@ -1,0 +1,218 @@
+[
+  {
+    "id": "d1",
+    "category": "docs",
+    "question": "How many days do customers have to return a product?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "30"
+    ]
+  },
+  {
+    "id": "d2",
+    "category": "docs",
+    "question": "From which order value is shipping free?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "50"
+    ]
+  },
+  {
+    "id": "d3",
+    "category": "docs",
+    "question": "How much is the diagnosis fee for a device that is out of warranty?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "29"
+    ]
+  },
+  {
+    "id": "d4",
+    "category": "docs",
+    "question": "What is the biggest goodwill voucher an agent can give without asking anyone?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "20"
+    ]
+  },
+  {
+    "id": "d5",
+    "category": "docs",
+    "question": "Within how many hours must an overheating device be reported to the product safety contact?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "24"
+    ]
+  },
+  {
+    "id": "d6",
+    "category": "docs",
+    "question": "A parcel has shown no tracking update for a week. After how many working days does support open a carrier investigation?",
+    "needs": [
+      "docs"
+    ],
+    "expect": [
+      "5"
+    ]
+  },
+  {
+    "id": "s1",
+    "category": "sql",
+    "question": "How many customers do we have?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT COUNT(*) FROM customers"
+  },
+  {
+    "id": "s2",
+    "category": "sql",
+    "question": "How many orders have the status delivered?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT COUNT(*) FROM orders WHERE status='delivered'"
+  },
+  {
+    "id": "s3",
+    "category": "sql",
+    "question": "Which product has the highest price and what does it cost?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 1"
+  },
+  {
+    "id": "s4",
+    "category": "sql",
+    "question": "How many customers live in Munich?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT COUNT(*) FROM customers WHERE city='Munich'"
+  },
+  {
+    "id": "s5",
+    "category": "sql",
+    "question": "How many products are in the Audio category?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT COUNT(*) FROM products WHERE category='Audio'"
+  },
+  {
+    "id": "s6",
+    "category": "sql",
+    "question": "How many orders did the customer Uwe Lang place?",
+    "needs": [
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT COUNT(*) FROM orders o JOIN customers c ON c.id=o.customer_id WHERE c.name='Uwe Lang'"
+  },
+  {
+    "id": "h1",
+    "category": "hybrid",
+    "question": "What is the return window in days, and how many orders have the status returned?",
+    "needs": [
+      "docs",
+      "sql"
+    ],
+    "expect": [
+      "30"
+    ],
+    "sql": "SELECT COUNT(*) FROM orders WHERE status='returned'"
+  },
+  {
+    "id": "h2",
+    "category": "hybrid",
+    "question": "How many products cost more than the order value from which shipping is free?",
+    "needs": [
+      "docs",
+      "sql"
+    ],
+    "expect": [
+      "50"
+    ],
+    "sql": "SELECT COUNT(*) FROM products WHERE price>50"
+  },
+  {
+    "id": "h3",
+    "category": "hybrid",
+    "question": "What is our total revenue according to the company's definition of revenue?",
+    "needs": [
+      "docs",
+      "sql"
+    ],
+    "expect": [],
+    "sql": "SELECT SUM(oi.quantity*p.price) FROM order_items oi JOIN orders o ON o.id=oi.order_id JOIN products p ON p.id=oi.product_id WHERE o.status='delivered'"
+  },
+  {
+    "id": "h4",
+    "category": "hybrid",
+    "question": "How many products are in the Computers category, and how long is the manufacturer warranty for laptops?",
+    "needs": [
+      "docs",
+      "sql"
+    ],
+    "expect": [
+      "2"
+    ],
+    "sql": "SELECT COUNT(*) FROM products WHERE category='Computers'"
+  },
+  {
+    "id": "h5",
+    "category": "hybrid",
+    "question": "How many orders were cancelled, and which reason for automatic cancellations do the documents give?",
+    "needs": [
+      "docs",
+      "sql"
+    ],
+    "expect": [
+      "foreign"
+    ],
+    "sql": "SELECT COUNT(*) FROM orders WHERE status='cancelled'"
+  },
+  {
+    "id": "u1",
+    "category": "unanswerable",
+    "question": "What is the company's parental leave policy?",
+    "needs": [
+      "docs"
+    ],
+    "expect": []
+  },
+  {
+    "id": "u2",
+    "category": "unanswerable",
+    "question": "What discount do students get?",
+    "needs": [
+      "docs"
+    ],
+    "expect": []
+  },
+  {
+    "id": "u3",
+    "category": "unanswerable",
+    "question": "How high is the salary of the managing director?",
+    "needs": [
+      "docs"
+    ],
+    "expect": []
+  }
+]
