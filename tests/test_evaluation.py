@@ -83,3 +83,10 @@ def test_evaluate_keeps_going_after_a_model_error(db_path):
     summary = summarize(outcomes)
     assert summary["all"]["correct"] == 1 and summary["docs"]["cases"] == 2
     assert "| fake | 1/2 |" in format_report({"fake": outcomes})
+
+
+def test_evaluate_stops_when_the_model_keeps_failing(db_path):
+    cases = [Case(str(i), "docs", f"q{i}", ["docs"], ["30"]) for i in range(5)]
+    agent = FakeAgent({f"q{i}": LLMError("down") for i in range(5)})
+    with pytest.raises(LLMError, match="3 model errors in a row"):
+        evaluate(agent, cases, db_path)

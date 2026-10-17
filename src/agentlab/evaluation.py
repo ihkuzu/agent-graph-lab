@@ -100,8 +100,9 @@ def is_correct(case: Case, result: Result, db_path: str | Path) -> bool:
     return True
 
 
-def evaluate(agent, cases: list[Case], db_path: str | Path, on_case=None) -> list[Outcome]:
+def evaluate(agent, cases: list[Case], db_path: str | Path, on_case=None, max_failures: int = 3) -> list[Outcome]:
     outcomes = []
+    failures = 0
     for case in cases:
         start = time.perf_counter()
         try:
@@ -120,6 +121,10 @@ def evaluate(agent, cases: list[Case], db_path: str | Path, on_case=None) -> lis
         outcomes.append(outcome)
         if on_case:
             on_case(outcome)
+        # a model that is down fails every question, so stop instead of recording noise
+        failures = failures + 1 if error else 0
+        if failures >= max_failures:
+            raise LLMError(f"{failures} model errors in a row, last: {error[:200]}")
     return outcomes
 
 

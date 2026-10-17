@@ -77,6 +77,11 @@ def main(argv: list[str] | None = None) -> int:
             print(result.answer)
             return 0 if result.finished else 1
 
+        try:
+            llm.chat("Reply with the JSON object {}.", [{"role": "user", "content": "ping"}])
+        except LLMError as error:
+            print(f"the model does not answer, not starting the eval: {error}", file=sys.stderr)
+            return 2
         cases = load_cases(args.cases)[: args.limit]
         results = {}
         for name in [v.strip() for v in args.variants.split(",") if v.strip()]:
@@ -87,7 +92,11 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"{o.case_id:4} {'ok ' if o.correct else 'bad'} tools={'ok ' if o.tools_ok else 'bad'} "
                       f"steps={o.steps} calls={o.llm_calls} {o.seconds}s", file=sys.stderr)
 
-            results[name] = evaluate(agent, cases, args.db, show)
+            try:
+                results[name] = evaluate(agent, cases, args.db, show)
+            except LLMError as error:
+                print(f"stopped: {error}", file=sys.stderr)
+                return 1
         print(format_report(results))
         if args.out:
             meta = {"llm": args.llm or "ollama", "model": args.model or "default", "cases": len(cases)}
