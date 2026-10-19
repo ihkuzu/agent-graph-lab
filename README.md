@@ -61,7 +61,33 @@ The check is substring and number matching, so a correct answer in unusual words
 
 ## Results
 
-Not measured yet. Run the eval on your own machine, the numbers depend on the model:
+Model: `llama3.2:3b` through Ollama, 20 questions, answers scored by the rules above. Run on my own PC; the full per-question answers and tool traces are in `results/`.
+
+| variant | correct (run 1) | correct (same code, run 2) | tools ok | model calls per question | seconds per question |
+|---|---|---|---|---|---|
+| `loop` | 11/20 | 11/20 | 14/20 | 4.35 | 1.35 |
+| `graph` | 10/20 | 11/20 | 13/20 | 4.4 | 1.41 |
+| `multi` | 12/20 | 12/20 | 16/20 | 7.65 | 2.62 |
+
+Correct answers per group (run 1):
+
+| variant | docs (6) | sql (6) | hybrid (5) | unanswerable (3) |
+|---|---|---|---|---|
+| `loop` | 6 | 1 | 1 | 3 |
+| `graph` | 5 | 1 | 1 | 3 |
+| `multi` | 5 | 3 | 1 | 3 |
+
+What I take from it:
+
+- **The framework changed nothing.** `loop` and `graph` share all logic and land within one question of each other, the same spread as between two runs of identical code.
+- **The team costs about 1.8x the model calls and time and gains one or two questions**, which is inside the noise of a 20-question set. I would not say it is better.
+- **Where it does help is tool choice.** With six tools the single agent often looked for customer counts in the documents (tools ok only 13 to 14 of 20, SQL questions 1 of 6). The data specialist sees only SQL tools and gets 3 of 6.
+- **A 3B model is weak at SQL here either way.** It writes `?` placeholders, calls `describe_table` again and again and runs out of steps. No variant gets more than 1 of 5 hybrid questions.
+- **Prompt rules did not fix it.** In a second round I added rules to the SQL prompts (no `?` placeholders, the schema is complete, use `run_sql` for counts and prices). It fixed some SQL questions, but the model then tried SQL on document questions: 9, 9 and 10 of 20 (`results/round2_prompt_rules.json`). I reverted the change. These rules were written after reading the failures on these same questions, so even a gain would not have been a clean result.
+
+Scoring note: after the first run I found that my check for unanswerable questions did not recognise phrases like "not documented". I fixed the phrase list and re-scored the saved answers (`agentlab rescore`) without calling the model again. Before that fix the numbers were 10, 9 and 10. The correct answers per question are unchanged.
+
+To repeat the measurement:
 
 ```bash
 agentlab eval --llm ollama --model llama3.2:3b --out results.json
@@ -74,6 +100,7 @@ pip install -e ".[dev]"
 agentlab init-db                  # sample shop database in data/shop.db
 agentlab ask "How many customers live in Munich?" --variant multi
 agentlab eval --variants loop,graph,multi --out results.json
+agentlab rescore results.json    # score saved answers again, no model needed
 ```
 
 Models: Ollama (default, `llama3.2:3b`) or Gemini (`--llm gemini`, needs `GEMINI_API_KEY`). Replies are requested as JSON.
@@ -87,7 +114,7 @@ pytest -q
 ## Limits
 
 - Documents and data are fictional and small (10 documents, 18 products, 400 orders). The numbers say something about these agents on this task, not about agents in general.
-- 20 questions are enough to see big differences and not enough to rank two close variants.
+- 20 questions are enough to see big differences and not enough to rank two close variants. Two runs of the same code differed by one question.
 - A 3B model through Ollama is weak at following the JSON protocol. That is on purpose (it shows what the guard rails catch), but it also means failures can be the model and not the architecture. The Gemini option exists to check that.
 - The synthesizer can only be as good as the specialists' notes; it has no tools to check them.
 - No memory between questions, no streaming, no parallel specialists.
@@ -105,7 +132,8 @@ src/agentlab/
   cli.py
 data/docs        the documents served by the MCP server
 data/eval        the questions
-tests/           34 tests, no model needed
+results/         answers and tool traces of the measured runs
+tests/           36 tests, no model needed
 ```
 
 MIT license.

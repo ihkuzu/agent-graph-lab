@@ -14,9 +14,7 @@ Database schema:
 
 Rules:
 - Use search_docs for policies, processes and definitions. search_docs matches words, so retry with other wording before giving up.
-- Use run_sql for numbers about customers, products and orders (counts, prices, cities, statuses). Use only the tables and columns in the schema.
-- Write complete SQL with literal values. Never use ? or named placeholders.
-- The schema above is complete. Call describe_table only if a query fails.
+- Use run_sql for numbers about customers, products and orders. Use only the tables and columns in the schema.
 - If a question needs both, use both tools.
 - Base the answer only on tool results. Never invent numbers.
 - If the documents or the data cannot answer the question, say so in the final answer.
@@ -50,8 +48,6 @@ Database schema:
 Rules:
 - Always run a query before you answer.
 - Use only the tables and columns in the schema.
-- Write complete SQL with literal values. Never use ? or named placeholders.
-- The schema above is complete. Call describe_table only if a query fails.
 - Apply every condition of the question as a filter (status, category, city).
 - Join tables when you need names. Report names, not ids.
 - Base the answer only on query results. Never invent numbers.
