@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
 from .agents import VARIANTS, build_agent
-from .evaluation import evaluate, format_report, load_cases, save_results
+from .evaluation import evaluate, format_report, load_cases, rescore, save_results
 from .llm import LLMError, get_llm
 from .toolbox import Toolbox
 
@@ -32,6 +33,11 @@ def _parser() -> argparse.ArgumentParser:
     ask.add_argument("--variant", choices=VARIANTS, default="multi")
     model_options(ask)
 
+    rs = sub.add_parser("rescore", help="score the saved answers of a results file again")
+    rs.add_argument("results")
+    rs.add_argument("--cases", default=DEFAULT_CASES)
+    rs.add_argument("--out", help="write the rescored results as JSON")
+
     ev = sub.add_parser("eval", help="run the eval for one or more variants")
     ev.add_argument("--variants", default=",".join(VARIANTS), help="comma separated")
     ev.add_argument("--cases", default=DEFAULT_CASES)
@@ -53,6 +59,13 @@ def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.command == "init-db":
         _init_db(args.db)
+        return 0
+    if args.command == "rescore":
+        saved = json.loads(Path(args.results).read_text(encoding="utf-8"))
+        results = rescore(args.results, load_cases(args.cases), args.db)
+        print(format_report(results))
+        if args.out:
+            save_results(args.out, saved["meta"], results)
         return 0
     if not Path(args.db).exists():
         print(f"{args.db} does not exist, run: agentlab init-db", file=sys.stderr)

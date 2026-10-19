@@ -17,7 +17,8 @@ NOT_COVERED = (
     "not cover", "no information", "not mention", "no mention", "does not say", "do not say",
     "not specified", "not available", "cannot", "can't", "unable", "no data", "not contain",
     "does not contain", "do not contain", "not include", "doesn't", "don't have", "no details",
-    "not found", "no relevant", "not provide",
+    "not found", "no relevant", "not provide", "could not find", "not documented", "insufficient",
+    "not covered", "not in the documents",
 )
 
 
@@ -171,3 +172,19 @@ def save_results(path: str | Path, meta: dict, results: dict[str, list[Outcome]]
         "outcomes": {name: [asdict(o) for o in outcomes] for name, outcomes in results.items()},
     }
     Path(path).write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def rescore(path: str | Path, cases: list[Case], db_path: str | Path) -> dict[str, list[Outcome]]:
+    """Recomputes correctness from the saved answers, without calling the model again."""
+    by_id = {c.id: c for c in cases}
+    saved = json.loads(Path(path).read_text(encoding="utf-8"))
+    results = {}
+    for name, items in saved["outcomes"].items():
+        outcomes = []
+        for item in items:
+            outcome = Outcome(**item)
+            result = Result(outcome.answer, [], outcome.finished, outcome.llm_calls)
+            outcome.correct = is_correct(by_id[outcome.case_id], result, db_path)
+            outcomes.append(outcome)
+        results[name] = outcomes
+    return results

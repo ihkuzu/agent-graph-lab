@@ -91,3 +91,13 @@ def test_evaluate_stops_when_the_model_keeps_failing(db_path):
     agent = FakeAgent({f"q{i}": LLMError("down") for i in range(5)})
     with pytest.raises(LLMError, match="3 model errors in a row"):
         evaluate(agent, cases, db_path)
+
+
+def test_rescore_uses_the_saved_answers(db_path, tmp_path):
+    from agentlab.evaluation import Outcome, rescore, save_results
+
+    case = Case("u", "unanswerable", "q", ["docs"])
+    saved = Outcome("u", "unanswerable", "Could not find anything about it.", False, True, True, 2, 3, 1.0)
+    path = tmp_path / "r.json"
+    save_results(path, {}, {"loop": [saved]})
+    assert rescore(path, [case], db_path)["loop"][0].correct

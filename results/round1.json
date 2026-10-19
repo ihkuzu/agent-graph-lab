@@ -1,0 +1,2716 @@
+{
+  "meta": {
+    "llm": "ollama",
+    "model": "llama3.2:3b",
+    "cases": 20
+  },
+  "summary": {
+    "loop": {
+      "all": {
+        "cases": 20,
+        "correct": 11,
+        "tools_ok": 14,
+        "avg_steps": 3.4,
+        "avg_llm_calls": 4.35,
+        "avg_seconds": 1.35
+      },
+      "docs": {
+        "cases": 6,
+        "correct": 6,
+        "tools_ok": 6,
+        "avg_steps": 2.17,
+        "avg_llm_calls": 3.17,
+        "avg_seconds": 0.92
+      },
+      "sql": {
+        "cases": 6,
+        "correct": 1,
+        "tools_ok": 3,
+        "avg_steps": 4.17,
+        "avg_llm_calls": 5.0,
+        "avg_seconds": 1.58
+      },
+      "hybrid": {
+        "cases": 5,
+        "correct": 1,
+        "tools_ok": 2,
+        "avg_steps": 4.0,
+        "avg_llm_calls": 5.0,
+        "avg_seconds": 1.62
+      },
+      "unanswerable": {
+        "cases": 3,
+        "correct": 3,
+        "tools_ok": 3,
+        "avg_steps": 3.33,
+        "avg_llm_calls": 4.33,
+        "avg_seconds": 1.29
+      }
+    },
+    "graph": {
+      "all": {
+        "cases": 20,
+        "correct": 10,
+        "tools_ok": 13,
+        "avg_steps": 3.4,
+        "avg_llm_calls": 4.4,
+        "avg_seconds": 1.41
+      },
+      "docs": {
+        "cases": 6,
+        "correct": 5,
+        "tools_ok": 6,
+        "avg_steps": 2.17,
+        "avg_llm_calls": 3.17,
+        "avg_seconds": 0.88
+      },
+      "sql": {
+        "cases": 6,
+        "correct": 1,
+        "tools_ok": 3,
+        "avg_steps": 4.17,
+        "avg_llm_calls": 5.17,
+        "avg_seconds": 1.67
+      },
+      "hybrid": {
+        "cases": 5,
+        "correct": 1,
+        "tools_ok": 1,
+        "avg_steps": 4.0,
+        "avg_llm_calls": 5.0,
+        "avg_seconds": 1.79
+      },
+      "unanswerable": {
+        "cases": 3,
+        "correct": 3,
+        "tools_ok": 3,
+        "avg_steps": 3.33,
+        "avg_llm_calls": 4.33,
+        "avg_seconds": 1.29
+      }
+    },
+    "multi": {
+      "all": {
+        "cases": 20,
+        "correct": 12,
+        "tools_ok": 16,
+        "avg_steps": 4.95,
+        "avg_llm_calls": 7.65,
+        "avg_seconds": 2.62
+      },
+      "docs": {
+        "cases": 6,
+        "correct": 5,
+        "tools_ok": 5,
+        "avg_steps": 3.33,
+        "avg_llm_calls": 6.17,
+        "avg_seconds": 1.73
+      },
+      "sql": {
+        "cases": 6,
+        "correct": 3,
+        "tools_ok": 6,
+        "avg_steps": 4.33,
+        "avg_llm_calls": 6.83,
+        "avg_seconds": 1.62
+      },
+      "hybrid": {
+        "cases": 5,
+        "correct": 1,
+        "tools_ok": 2,
+        "avg_steps": 8.2,
+        "avg_llm_calls": 10.8,
+        "avg_seconds": 5.3
+      },
+      "unanswerable": {
+        "cases": 3,
+        "correct": 3,
+        "tools_ok": 3,
+        "avg_steps": 4.0,
+        "avg_llm_calls": 7.0,
+        "avg_seconds": 1.94
+      }
+    }
+  },
+  "outcomes": {
+    "loop": [
+      {
+        "case_id": "d1",
+        "category": "docs",
+        "answer": "Customers have 30 days from delivery date to return a product.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 1.11,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "return policy days",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d2",
+        "category": "docs",
+        "answer": "Shipping is free for orders above 50 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.93,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "free shipping order value",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d3",
+        "category": "docs",
+        "answer": "The diagnosis fee for a device that is out of warranty is 29 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.24,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "out of warranty diagnosis fee",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d4",
+        "category": "docs",
+        "answer": "The biggest goodwill voucher an agent can give without asking anyone is 20 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.84,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "maximum goodwill voucher amount",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d5",
+        "category": "docs",
+        "answer": "The overheating device must be reported to the product safety contact within 24 hours.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.8,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "overheating device reporting time limit",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d6",
+        "category": "docs",
+        "answer": "5 working days",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.63,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "carrier investigation delay",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s1",
+        "category": "sql",
+        "answer": "The number of customers could not be found in the available documents.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.16,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "number of customers",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s2",
+        "category": "sql",
+        "answer": "I could not finish within 8 steps.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": false,
+        "steps": 8,
+        "llm_calls": 8,
+        "seconds": 2.83,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": null
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s3",
+        "category": "sql",
+        "answer": "{'product_id': '2', 'price': '1299.0'}",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.99,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT name, price FROM products ORDER BY price DESC LIMIT 1",
+              "max_rows": "1"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s4",
+        "category": "sql",
+        "answer": "The internal documents do not appear to contain information about customer locations.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.75,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Munich city",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "city Munich customer",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s5",
+        "category": "sql",
+        "answer": "The documents do not cover the information about product categories and their corresponding counts.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.83,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Audio category products count",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Audio products count",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s6",
+        "category": "sql",
+        "answer": "Uwe Lang has placed 14 orders.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.94,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE name = \"Uwe Lang\")",
+              "max_rows": "100"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h1",
+        "category": "hybrid",
+        "answer": "{'return_window': '30', 'orders_with_returned_status': '41'}",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.78,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "return window days",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = \"returned\"",
+              "max_rows": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h2",
+        "category": "hybrid",
+        "answer": "0",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.86,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "shipping cost threshold",
+              "k": "5"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM order_items WHERE quantity * products.price > (50 - 4.95)",
+              "max_rows": "1"
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "describe_table",
+            "args": {
+              "table": "order_items"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h3",
+        "category": "hybrid",
+        "answer": "The documents do not cover a clear definition of revenue.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.44,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "revenue definition",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h4",
+        "category": "hybrid",
+        "answer": "The documents do not cover information about product categories. The warranty period for laptops is not specified in the documents either.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.76,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Computers category",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h5",
+        "category": "hybrid",
+        "answer": "{'cancelled_orders': 0, 'reason': 'failed payment or foreign delivery address'}",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.25,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "automatic cancellation reason orders",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "automatic cancellation reason orders",
+              "k": "10"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "u1",
+        "category": "unanswerable",
+        "answer": "Could not find any information on the parental leave policy in the available documents.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.95,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "parental leave policy Lindenhof Electronics",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "u2",
+        "category": "unanswerable",
+        "answer": "The documents do not cover student discount policy.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.61,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount policy",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "u3",
+        "category": "unanswerable",
+        "answer": "No information found about the salary of the managing director.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.31,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "salary managing director Lindenhof Electronics",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      }
+    ],
+    "graph": [
+      {
+        "case_id": "d1",
+        "category": "docs",
+        "answer": "No information found on the required policy period.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.8,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "return policy",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d2",
+        "category": "docs",
+        "answer": "Shipping is free for orders above 50 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.9,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "free shipping order value",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d3",
+        "category": "docs",
+        "answer": "The diagnosis fee for a device that is out of warranty is 29 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.24,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "out of warranty diagnosis fee",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d4",
+        "category": "docs",
+        "answer": "The biggest goodwill voucher an agent can give without asking anyone is 20 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.88,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "maximum goodwill voucher amount",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d5",
+        "category": "docs",
+        "answer": "The overheating device must be reported to the product safety contact within 24 hours.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.81,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "overheating device reporting time limit",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d6",
+        "category": "docs",
+        "answer": "5 working days",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.65,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "carrier investigation delay",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s1",
+        "category": "sql",
+        "answer": "The number of customers could not be found in the available documents.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.18,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "number of customers",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s2",
+        "category": "sql",
+        "answer": "There are 400 rows in the \"orders\" table, but only some of them have a status of 'delivered'.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 8,
+        "llm_calls": 9,
+        "seconds": 3.32,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": null
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ?",
+              "max_rows": 100
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s3",
+        "category": "sql",
+        "answer": "{'product_id': '2', 'price': '1299.0'}",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 1.0,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT name, price FROM products ORDER BY price DESC LIMIT 1",
+              "max_rows": "1"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s4",
+        "category": "sql",
+        "answer": "The internal documents do not appear to contain information about customer locations.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.76,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Munich city",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "city Munich customer",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s5",
+        "category": "sql",
+        "answer": "The documents do not cover the information about product categories and their corresponding counts.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.8,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Audio category products count",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Audio products count",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s6",
+        "category": "sql",
+        "answer": "Uwe Lang has placed 14 orders.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.96,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE name = \"Uwe Lang\")",
+              "max_rows": "100"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h1",
+        "category": "hybrid",
+        "answer": "{'return_window': '30', 'orders_with_returned_status': '41'}",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.8,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "return window days",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = \"returned\"",
+              "max_rows": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h2",
+        "category": "hybrid",
+        "answer": "There are 0 products that cost more than the order value from which shipping is free.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 2.47,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "shipping is free",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM order_items WHERE quantity * products.price > (SELECT AVG(order_date) FROM orders)",
+              "max_rows": "100"
+            },
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "price threshold for free shipping",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h3",
+        "category": "hybrid",
+        "answer": "The documents do not cover a clear definition of revenue, and no SQL query can provide a numeric value for it based on the given schema.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.66,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "revenue definition",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h4",
+        "category": "hybrid",
+        "answer": "The documents do not cover information about product categories. The warranty period for laptops is not specified in the documents either.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 5,
+        "seconds": 1.76,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "Computers category",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h5",
+        "category": "hybrid",
+        "answer": "{'cancelled_orders': 0, 'reason': 'failed payment or foreign delivery address'}",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.24,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "automatic cancellation reason orders",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "automatic cancellation reason orders",
+              "k": "10"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "u1",
+        "category": "unanswerable",
+        "answer": "Could not find any information on the parental leave policy in the available documents.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 3,
+        "seconds": 0.95,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "parental leave policy Lindenhof Electronics",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "u2",
+        "category": "unanswerable",
+        "answer": "The documents do not cover student discount policy.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 6,
+        "seconds": 1.62,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount policy",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "u3",
+        "category": "unanswerable",
+        "answer": "No information found about the salary of the managing director.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 4,
+        "seconds": 1.31,
+        "error": "",
+        "trace": [
+          {
+            "role": "agent",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "agent",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "agent",
+            "tool": "search_docs",
+            "args": {
+              "query": "salary managing director Lindenhof Electronics",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      }
+    ],
+    "multi": [
+      {
+        "case_id": "d1",
+        "category": "docs",
+        "answer": "Customers have 30 days from delivery to return a product.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.73,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "return window",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d2",
+        "category": "docs",
+        "answer": "Orders above 50 EUR",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 5,
+        "seconds": 1.39,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "free shipping order value",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d3",
+        "category": "docs",
+        "answer": "The diagnosis fee for a device that is out of warranty is not specified in the available documentation.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 2.34,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "read_doc",
+            "args": {
+              "name": "Out of Warranty Policy"
+            },
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "read_doc",
+            "args": {
+              "name": "Warranty and Fees"
+            },
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "d4",
+        "category": "docs",
+        "answer": "The biggest goodwill voucher an agent can give without asking anyone is 20 EUR.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.69,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "Goodwill voucher agent",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d5",
+        "category": "docs",
+        "answer": "Within 24 hours",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.66,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "overheating device report time limit",
+              "k": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "d6",
+        "category": "docs",
+        "answer": "Support opens a carrier investigation after 5 working days.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.57,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "carrier investigation delay",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s1",
+        "category": "sql",
+        "answer": "Unable to provide an accurate answer as the SQL specialist was unable to complete their notes.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 1.62,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "list_tables",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "customers"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "customers"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s2",
+        "category": "sql",
+        "answer": "324",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.2,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ",
+              "max_rows": "100"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = \"delivered\""
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s3",
+        "category": "sql",
+        "answer": "The product with the highest price is Laptop 16, which costs $1299.0.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.87,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "products"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT name, price FROM products WHERE category = \"Computers\" ORDER BY price DESC LIMIT 1"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s4",
+        "category": "sql",
+        "answer": "Unable to provide an answer as the SQL specialist was unable to finish providing information.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 1.82,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "customers"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM customers WHERE city = ? AND status = ?",
+              "max_rows": 1
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "customers"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "s5",
+        "category": "sql",
+        "answer": "Insufficient information available.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 1.99,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "products"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM products WHERE category = ?",
+              "max_rows": null
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM products WHERE category = ?",
+              "max_rows": 3
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM products WHERE category = ?",
+              "max_rows": 3
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "s6",
+        "category": "sql",
+        "answer": "Uwe Lang has placed 14 orders.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 2,
+        "llm_calls": 5,
+        "seconds": 1.2,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE name = \"Uwe Lang\")",
+              "max_rows": "10"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h1",
+        "category": "hybrid",
+        "answer": "{'return_window': 30, 'orders_returned': 'unknown'}",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 9,
+        "llm_calls": 12,
+        "seconds": 4.79,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "return window",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT DATEDIFF(order_date, signup_date) FROM customers WHERE city = ? AND status = ?",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "customers"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT DATEDIFF(order_date, signup_date) FROM orders WHERE status = ? AND city = ?",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT DATEDIFF(order_date, signup_date) FROM orders WHERE status = ? AND city = ?",
+              "max_rows": "10"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h2",
+        "category": "hybrid",
+        "answer": "Unable to provide an accurate answer due to incomplete information.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 5.42,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.product_id WHERE p.price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\")",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.order_id WHERE p.price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\")",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.id WHERE p.price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\")",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.id WHERE p.price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\") AND o.status = \"Free Shipping\"",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.id WHERE p.price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\") AND o.status = \"Free Shipping\" AND price > (SELECT AVG(price) FROM orders WHERE status = \"Free Shipping\")",
+              "max_rows": "10"
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(DISTINCT p.name) FROM products AS p JOIN orders AS o ON p.id = o.id WHERE p.price > (SELECT AVG(price) * 1.1 FROM orders WHERE status = \"Free Shipping\") AND o.status = \"Free Shipping\"",
+              "max_rows": "10"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h3",
+        "category": "hybrid",
+        "answer": "Unable to provide a final answer due to incomplete information from the SQL specialist.",
+        "correct": false,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 6,
+        "llm_calls": 8,
+        "seconds": 5.84,
+        "error": "",
+        "trace": [
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T2.price * T3.quantity) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id INNER JOIN customers AS T3 ON T2.customer_id = T3.id WHERE T3.city = ? AND T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T1.price * T2.quantity) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id INNER JOIN customers AS T3 ON T2.customer_id = T3.id WHERE T3.city = ? AND T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T2.quantity * T3.price) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id INNER JOIN customers AS T3 ON T2.customer_id = T3.id WHERE T3.city = ? AND T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T1.quantity * T3.price) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id INNER JOIN customers AS T3 ON T2.customer_id = T3.id WHERE T3.city = ? AND T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T1.quantity * T2.price) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id WHERE T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT SUM(T1.quantity * T3.price) FROM order_items AS T1 INNER JOIN orders AS T2 ON T1.order_id = T2.id INNER JOIN customers AS T3 ON T2.customer_id = T3.id WHERE T3.city = ? AND T2.status = ?",
+              "max_rows": 10
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "h4",
+        "category": "hybrid",
+        "answer": "There are 4 products in the \"Computers\" category, with a manufacturer warranty for laptops being 1 year or 2 years.",
+        "correct": true,
+        "tools_ok": false,
+        "finished": true,
+        "steps": 11,
+        "llm_calls": 14,
+        "seconds": 5.18,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "list_tables",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "products"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM products WHERE category = \"Computers\""
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT price FROM products WHERE category = \"Computers\" AND name LIKE \"Laptop %\""
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "h5",
+        "category": "hybrid",
+        "answer": "The documents indicate that orders were cancelled due to reasons such as failed payment, foreign delivery address, or customer-initiated cancellation.",
+        "correct": false,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 9,
+        "llm_calls": 12,
+        "seconds": 5.26,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "cancelled order reason",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": false
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ? AND category = ? AND city = ?",
+              "max_rows": null
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT COUNT(*) FROM orders WHERE status = ? AND category = ? AND city = ?",
+              "max_rows": 0
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "run_sql",
+            "args": {
+              "query": "SELECT status FROM orders WHERE category = ? AND city = ?",
+              "max_rows": 1
+            },
+            "error": true
+          },
+          {
+            "role": "sql",
+            "tool": "describe_table",
+            "args": {
+              "table": "orders"
+            },
+            "error": true
+          }
+        ]
+      },
+      {
+        "case_id": "u1",
+        "category": "unanswerable",
+        "answer": "The company's parental leave policy is not documented.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 3,
+        "llm_calls": 6,
+        "seconds": 1.75,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "parental leave policy",
+              "k": "10"
+            },
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "u2",
+        "category": "unanswerable",
+        "answer": "The documents do not cover this information.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 4,
+        "llm_calls": 7,
+        "seconds": 2.11,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount",
+              "k": "5"
+            },
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "search_docs",
+            "args": {
+              "query": "student discount policy",
+              "k": "5"
+            },
+            "error": false
+          }
+        ]
+      },
+      {
+        "case_id": "u3",
+        "category": "unanswerable",
+        "answer": "The salary of the managing director is not documented.",
+        "correct": true,
+        "tools_ok": true,
+        "finished": true,
+        "steps": 5,
+        "llm_calls": 8,
+        "seconds": 1.97,
+        "error": "",
+        "trace": [
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": false
+          },
+          {
+            "role": "docs",
+            "tool": "list_docs",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "(early answer)",
+            "args": {},
+            "error": true
+          },
+          {
+            "role": "docs",
+            "tool": "read_doc",
+            "args": {
+              "name": "onboarding"
+            },
+            "error": false
+          }
+        ]
+      }
+    ]
+  }
+}
